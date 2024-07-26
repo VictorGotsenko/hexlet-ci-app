@@ -44,6 +44,8 @@ jobs:
       # Integrate the Snyk CLI in a build step of your GitHub Action
   code-security:
     runs-on: ubuntu-latest
+    env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     steps:
     - name: install Snyk CLI
       run: npm install -g snyk
@@ -51,10 +53,7 @@ jobs:
       run: snyk test
     - name: run Snyk Code Test
       run: snyk code test
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      with:
-        command: code test    
+      
       
   setup:
     needs: test
