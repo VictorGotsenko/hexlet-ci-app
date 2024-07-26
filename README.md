@@ -1,6 +1,5 @@
 # Example app for CI Hexlet course
 
-# Add bange GitHub Action
 [![Makefile CI](https://github.com/VictorGotsenko/hexlet-ci-app/actions/workflows/makefile.yml/badge.svg)](https://github.com/VictorGotsenko/hexlet-ci-app/actions/workflows/makefile.yml)
 
 Starting boilerplate of [Strapi](https://strapi.io/) application
