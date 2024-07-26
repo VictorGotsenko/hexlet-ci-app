@@ -51,8 +51,10 @@ jobs:
       run: snyk test
     - name: run Snyk Code Test
       run: snyk code test
-        with:
-          command: code test    
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        command: code test    
       
   setup:
     needs: test
