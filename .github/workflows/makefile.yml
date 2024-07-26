@@ -12,16 +12,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout code
     - uses: actions/checkout@v4
+    - name: Install NodeJS >= 18
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 18
+    - name: Install dependencies    
+    - run: npm ci
+    - run: npm test
+    
 
-    - name: configure
-      run: ./configure
+    #- name: configure
+    #  run: ./configure
 
-    - name: Install dependencies
-      run: make
+    #- name: Install dependencies
+    #  run: make
 
-    - name: Run check
-      run: make check
+    #- name: Run check
+    #  run: make check
 
-    - name: Run distcheck
-      run: make distcheck
+    #- name: Run distcheck
+    #  run: make distcheck
