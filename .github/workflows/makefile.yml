@@ -1,6 +1,7 @@
 name: Makefile CI
 on: [push]  
 jobs:
+  # Run Linter
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -18,7 +19,7 @@ jobs:
       # Запуск линтера
     - run: npm run lint
   
-  
+  # Run Test
   test:
     needs: lint
     runs-on: ubuntu-latest
@@ -35,10 +36,25 @@ jobs:
       # Ставим зависимости Install dependencies
     - run: npm install
  
-      # Запуск тестов
+      # Вот тесты
     - name: run tests
       run: npm test 
       # name и run относятся к одной задаче, поэтому дефис только перед name
+      
+      # Integrate the Snyk CLI in a build step of your GitHub Action
+  code-security:
+    runs-on: ubuntu-latest
+    steps:
+    - name: install Snyk CLI
+      run: npm install -g snyk
+    - name: run Snyk Open Source Test
+      run: snyk test
+    - name: run Snyk Code Test
+      run: snyk code test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: code test    
       
   setup:
     needs: test
@@ -55,13 +71,7 @@ jobs:
  
       # Ставим зависимости Install dependencies
     - run: npm install
-      # Integrate the Snyk CLI in a build step of your GitHub Action
-    - name: install Snyk CLI
-      run: npm install -g snyk
-    - name: run Snyk Open Source Test
-      run: snyk test
-    - name: run Snyk Code Test
-      run: snyk code test  
+      
       
       
     
