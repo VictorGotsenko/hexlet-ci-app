@@ -55,7 +55,13 @@ jobs:
  
       # Ставим зависимости Install dependencies
     - run: npm install
-      
+      # Integrate the Snyk CLI in a build step of your GitHub Action
+    - name: install Snyk CLI
+      run: npm install -g snyk
+    - name: run Snyk Open Source Test
+      run: snyk test
+    - name: run Snyk Code Test
+      run: snyk code test  
       
       
     
