@@ -1,7 +1,7 @@
 name: Makefile CI
 on: [push]  
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -11,15 +11,50 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 18
+        cache: 'npm' # ускоряет повторные сборки
         
       # Ставим зависимости Install dependencies
     - run: npm install
       # Запуск линтера
     - run: npm run lint
+  
+  
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install NodeJS >= 18
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+        cache: 'npm' # ускоряет повторные сборки
+ 
+      # Ставим зависимости Install dependencies
+    - run: npm install
+ 
       # Запуск тестов
     - name: run tests
       run: npm test 
       # name и run относятся к одной задаче, поэтому дефис только перед name
+      
+  setup:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install NodeJS >= 18
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+        cache: 'npm' # ускоряет повторные сборки
+ 
+      # Ставим зависимости Install dependencies
+    - run: npm install
       
       
       
