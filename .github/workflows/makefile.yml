@@ -45,6 +45,8 @@ jobs:
   code-security:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
     - name: install Snyk CLI
       run: npm install -g snyk
     - name: run Snyk Open Source Test
